@@ -17,7 +17,7 @@ c# 개발 환경 설정 방법 (console, wpf, usercontrollib 등 모든 형태�
 
 
 ## vscode setting
-vscode setting(ctrl + ,)에 들어가서 Omnisharp 검색, Use Omnisharp 체크 (default 는 미체크)
+vscode setting(ctrl + ,)에 들어가서 Omnisharp 검색, Use Omnisharp 체크 (default 는 미체크 상태)
 * OmniSharp는 .NET 개발자들을 위한 오픈 소스 프로젝트로, 다양한 코드 편집기와 IDE에서 C# 개발 환경을 제공하는 도구
 * Omnisharp을 사용하여 C# Dev Kit 기능 수행
 * C# extension에 들어있는 옵션
@@ -25,7 +25,7 @@ vscode setting(ctrl + ,)에 들어가서 Omnisharp 검색, Use Omnisharp 체크 
 
 ## 프로젝트 생성, 빌드 및 실행
   1. vscode의 터미널 사용 또는 "Developer Command Prompt for VS 2022" 사용
-      * Developer Command Prompt for VS 2022는 visual studio build tools 2022 설치시 자동 설치
+      * Developer Command Prompt for VS 2022는 visual studio build tools 2022 설치 시 자동 설치
       * 시작에서 Developer Command Prompt for VS 2022 검색 
   2. 프로젝트 폴더 생성
   3. 
@@ -33,9 +33,8 @@ vscode setting(ctrl + ,)에 들어가서 Omnisharp 검색, Use Omnisharp 체크 
 dotnet new console -n ConsoleTest
 dotnet new wpf -n WpfTest
 dotnet new wpfusercontrollib -n UserControlTest
-...
      
-cd UserControlTest
+cd WpfTest
 dotnet build
 dotnet run
 ```
@@ -46,9 +45,11 @@ dotnet run
      * 디버깅 메뉴 (ctrl+shift+D)
      * "create a launch.json file" 실행
      * ".NET Core" 선택
-  2. launch.json 작성
-     * 우측하단에 파랑색 'Add Configuration' 클릭
+       * WpfTest 선택 시 vscode에서 자동 생성. f5로 바로 디버깅 시작 (밑 과정 불필요)
+  2. 수동 생성 launch.json 작성
+     * 우측하단에 파란색 'Add Configuration' 클릭
      * 스크롤을 올려서 '{} .NET: Attach to a .Net process' , '{} .NET: Launch Executable file (Console)' 클릭
+       * 생성된 "program": "${workspaceFolder} ..." 부분 WpfTest/bin/Debug/net8.0-windows/WpfTest.dll으로 경로에 맞게 수정
      * launch.json 샘플
      ```json
      {
@@ -59,7 +60,7 @@ dotnet run
                 "type": "coreclr",
                 "request": "launch",
                 "preLaunchTask": "build",
-                "program": "${workspaceFolder}/bin/Debug/net8.0-windows/WpfTest.dll",
+                "program": "${workspaceFolder}/WpfTest/bin/Debug/net8.0-windows/WpfTest.dll",
                 "args": [],
                 "cwd": "${workspaceFolder}",
                 "console": "internalConsole",
@@ -72,5 +73,5 @@ dotnet run
             }
         ]
      }
- 
-  3. F5로 디버깅 시작
+  3. 좌측 상단에 실행 버튼 옆에 .NET Core Launch (consol) 선택
+  4. F5로 디버깅 시작
